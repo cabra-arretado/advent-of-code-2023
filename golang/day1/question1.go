@@ -29,4 +29,8 @@ pqr3stu8vwx
 a1b2c3d4e5f
 treb7uchet`
 	testLines := strings.Split(arr, "\n")
+	expected := []int{12, 38, 15, 77}
+		for i := range testLines{
+		fmt.Println("Test", i, processLineQ1(testLines[i]) == expected[i])
+	}
 }
