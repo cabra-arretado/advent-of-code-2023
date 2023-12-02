@@ -3,7 +3,8 @@ package main
 import "fmt"
 
 func main() {
-	file := "./input.txt"
+	// file := "./input.txt"
 
-	fmt.Printf("First question answer is:")
+	fmt.Println("First question answer is:")
+	testQuestion1()
 }
