@@ -20,18 +20,18 @@ export const processLine = (line: string): number => {
   return Number(n)
 }
 
-export const processFile = async (input: string) => {
-  const data = await readFile(input)
+export const processFile = async (input: string): Promise<number> => {
   let total = 0
-  for (let ea of data.trim().split('\n')) {
+  for (let ea of input.trim().split('\n')) {
     total += processLine(ea)
   }
   return total
 }
 
 const main = async () => {
-  const input = "src/day1/input.txt"
-  let a = await processFile(input)
+  const input_file = "src/day1/input.txt"
+  const data = await readFile(input_file)
+  let a = await processFile(data)
   console.log("Day 1 question 1 answer:", a)
 }
 
