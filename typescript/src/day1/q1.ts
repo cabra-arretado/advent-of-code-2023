@@ -1,4 +1,3 @@
-import { assert } from "console";
 import { readFile } from "../utils";
 
 const processLine = (line: string): number => {
@@ -10,29 +9,29 @@ const processLine = (line: string): number => {
     }
   }
   let second: string
-  for (let i = line.length; 0 < i; i--) {
+  for (let i = line.length; 0 <= i; i--) {
     if (/^[0-9]*$/.test(line[i])) {
       second = line[i]
       break
     }
   }
-  console.log(Number(first + second))
-  return Number(first + second)
+  let n = first.concat(second)
+  return Number(n)
 }
 
-const processFile = async () => {
-  const input = "src/day1/input.txt"
+const processFile = async (input: string) => {
   const data = await readFile(input)
   let total = 0
-  for (let ea of data.split('\n')) {
+  for (let ea of data.trim().split('\n')) {
     total += processLine(ea)
   }
   return total
 }
 
-// const test = () => {
-//   assert(processLine("1abc2") == 12)
-//   assert(processLine("pqr3stu8vwx") == 38)
-//   assert(processLine("a1b2c3d4e5f") == 15)
-//   assert(processLine("treb7uchet") == 77)
-// }
+const main = async () => {
+  const input = "src/day1/input.txt"
+  let a = await processFile(input)
+  console.log(a)
+}
+
+main()
