@@ -1,16 +1,17 @@
 import { readFile } from "../utils";
 
-const processLine = (line: string): number => {
+export const processLine = (line: string): number => {
   let first: string
+  const re = /^[0-9]*$/
   for (let i = 0; i < line.length; i++) {
-    if (/^[0-9]*$/.test(line[i])) {
+    if (re.test(line[i])) {
       first = line[i]
       break
     }
   }
   let second: string
   for (let i = line.length; 0 <= i; i--) {
-    if (/^[0-9]*$/.test(line[i])) {
+    if (re.test(line[i])) {
       second = line[i]
       break
     }
@@ -19,7 +20,7 @@ const processLine = (line: string): number => {
   return Number(n)
 }
 
-const processFile = async (input: string) => {
+export const processFile = async (input: string) => {
   const data = await readFile(input)
   let total = 0
   for (let ea of data.trim().split('\n')) {
@@ -31,7 +32,7 @@ const processFile = async (input: string) => {
 const main = async () => {
   const input = "src/day1/input.txt"
   let a = await processFile(input)
-  console.log(a)
+  console.log("Day 1 question 1 answer:", a)
 }
 
 main()
