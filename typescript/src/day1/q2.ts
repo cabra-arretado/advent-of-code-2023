@@ -49,9 +49,11 @@ export const textToDigit = (line: string): string => {
   return s
 }
 
-const main = async () => {
+const main = async (): Promise<number> => {
   const input_file = "src/day1/input.txt"
   const data = await readFile(input_file)
   let a = processFile(data)
-  console.log("Day 1 question 2 answer:", a)
+  return a
 }
+
+export default main

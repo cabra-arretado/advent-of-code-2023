@@ -28,9 +28,11 @@ export const processFile = async (input: string): Promise<number> => {
   return total
 }
 
-export const main = async () => {
+const main = async (): Promise<number> => {
   const input_file = "src/day1/input.txt"
   const data = await readFile(input_file)
-  let a = await processFile(data)
-  console.log("Day 1 question 1 answer:", a)
+  let a = processFile(data)
+  return a
 }
+
+export default main
