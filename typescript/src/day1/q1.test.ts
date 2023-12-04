@@ -1,5 +1,5 @@
 import { describe, test, expect } from "@jest/globals"
-import { processFile, processLine } from "../day1/q1"
+import { processFile, processLine } from "./q1"
 
 describe("Day 1 Question 1", () => {
   describe("Process Line", () => {
@@ -24,3 +24,8 @@ treb7uchet
     })
   })
 })
+
+describe("Day 1 Question 2", () => {
+  test("Test given by the problem", () => {})
+})
+
