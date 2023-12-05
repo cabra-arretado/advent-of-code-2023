@@ -28,6 +28,6 @@ export const printAnswers = async (day: string | number, q1: () => any = blank, 
   printInColors("yellow", answer_q1)
   printInColors("red", "Question 2:")
   printInColors("yellow", answer_q2)
- printInColors("blue", "~~~~~~~~~~~~~~~~~")
+  printInColors("blue", "~~~~~~~~~~~~~~~~~")
 }
 
