@@ -56,3 +56,56 @@ while row < rows:
 print(f"part 1: {total}")
 
 
+def find_number(row, col, matrix):
+	og_col = col
+	new_list = []
+	# format row-col
+	first_index = f'{row}-{col}'
+
+	# <<<<
+	while col >= 0 and matrix[row][col].isdigit():
+		new_list.insert(0, matrix[row][col])
+		first_index = f'{row}-{col}'
+		col -= 1
+	# >>>>
+	col = og_col + 1
+	while col < cols and matrix[row][col].isdigit():
+		new_list.append(matrix[row][col])
+		col += 1
+
+	if not new_list:
+		return 1
+	return first_index, int(''.join(new_list))
+
+
+def gear_ratio_processor(row, col, matrix):
+	# return the number of times the * touches the numbers
+	rows = len(matrix)
+	cols = len(matrix[0])
+	gears = dict()
+	for i, j in ARROUND_FILDS:
+		if row + i < 0 or col + j < 0:
+			continue
+		if row + i >= rows or col + j >= cols:
+			continue
+		if matrix[row + i][col + j].isdigit():
+			first_index, full_number = find_number(row + i, col + j, matrix)
+			gears.update({first_index: full_number})
+
+	if len(gears) < 2:
+		return 0
+	from functools import reduce
+	return reduce(lambda x, y: x * y, gears.values())
+
+total = 0
+
+row = 0
+while row < rows:
+    col = 0
+    while col < cols:
+        if f_lines[row][col] == '*':
+            total += gear_ratio_processor(row, col, f_lines)
+        col += 1
+    row += 1
+
+print(f"part 2: {total}")
