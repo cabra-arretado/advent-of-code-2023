@@ -3,7 +3,7 @@
 
 ## COMMON FOR BOTH PARTS
 
-file = "inputs/day3_input.txt"
+file = "../inputs/day3_input.txt"
 with open(file) as f:
     lines = f.read().strip().split('\n')
     f_lines = list(lines)
