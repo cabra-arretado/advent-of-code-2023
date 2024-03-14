@@ -1,7 +1,10 @@
 import * as fs from "fs"
 
-export const readFile = async (file_path: string) => {
-  return fs.readFileSync(file_path, "utf-8")
+const INPUT_PATH = "../inputs"
+
+export const readFile = async (day_number: string) => {
+  console.log(`${INPUT_PATH}/${day_number}_input.txt`)
+  return fs.readFileSync(`${INPUT_PATH}/${day_number}_input.txt`, "utf-8")
 }
 
 const printInColors = (color: string, s: any) => {

@@ -50,8 +50,7 @@ export const textToDigit = (line: string): string => {
 }
 
 const main = async (): Promise<number> => {
-  const input_file = "src/day1/input.txt"
-  const data = await readFile(input_file)
+  const data = await readFile("day1")
   let a = processFile(data)
   return a
 }

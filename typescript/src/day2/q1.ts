@@ -59,8 +59,7 @@ export const identifyColor = (s: string, clrs: Colors) => {
 }
 
 const main = async (): Promise<number> => {
-  const input_file = "src/day2/input.txt"
-  const data = await readFile(input_file)
+  const data = await readFile("day2")
   let a = processFile(data)
   return a
 }
