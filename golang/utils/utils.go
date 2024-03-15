@@ -1,11 +1,13 @@
-package main
+package utils
 
 import (
+	"fmt"
 	"bufio"
 	"os"
 )
 
-func readFile(file_path string, callback func(*bufio.Scanner) int) int {
+// ReadFile reads a file and returns a scanner object
+func ReadFile(file_path string, callback func(*bufio.Scanner) int) int {
 	file, err := os.Open(file_path)
 	if err != nil {
 		panic(err)
@@ -14,4 +16,8 @@ func readFile(file_path string, callback func(*bufio.Scanner) int) int {
 	scanner := bufio.NewScanner(file)
 	scanner.Split(bufio.ScanLines)
 	return callback(scanner)
+}
+
+func PrintHelloWorld() {
+	fmt.Println("Hello World")
 }
