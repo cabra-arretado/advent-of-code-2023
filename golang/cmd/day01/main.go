@@ -18,40 +18,42 @@ func callbackQ1(scanner *bufio.Scanner) int {
 	var total int
 	for scanner.Scan() {
 		line := scanner.Text()
-		total += processLine1(line)
+		lineSlice := []rune(line)
+		total += processLine1Matrix(lineSlice)
 	}
 	return total
 }
 
-func processLine1(line string) int {
-	slice := []rune(line)
-	var total []rune
-	for _, char := range slice {
-		if unicode.IsDigit(char) {
-			total = append(total, char)
-			break
-		}
-	}
-	for i := len(slice) - 1; i >= 0; i-- {
-		if unicode.IsDigit(slice[i]) {
-			total = append(total, slice[i])
-			break
-		}
-	}
-	totalString := string(total)
-	totalInt, err := strconv.Atoi(totalString)
-	if err != nil {
-		panic(err)
-	}
-	return totalInt
-}
+// func processLine1(line string) int {
+// 	slice := []rune(line)
+// 	var total []rune
+// 	for _, char := range slice {
+// 		if unicode.IsDigit(char) {
+// 			total = append(total, char)
+// 			break
+// 		}
+// 	}
+// 	for i := len(slice) - 1; i >= 0; i-- {
+// 		if unicode.IsDigit(slice[i]) {
+// 			total = append(total, slice[i])
+// 			break
+// 		}
+// 	}
+// 	totalString := string(total)
+// 	totalInt, err := strconv.Atoi(totalString)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	return totalInt
+// }
 
 func callbackQ2(scanner *bufio.Scanner) int {
 	var total int
 	for scanner.Scan() {
 		line := scanner.Text()
 		line = substituteNumbers(line)
-		total += processLine1(line)
+		stringSlice := []rune(line)
+		total += processLine1Matrix(stringSlice)
 	}
 	return total
 }
@@ -110,7 +112,8 @@ func matrixQ2(matrix [][]rune) int {
 	for _, slice := range matrix {
 		line := string(slice)
 		line = substituteNumbers(line)
-		total += processLine1(line)
+		sliceLine := []rune(line)
+		total += processLine1Matrix(sliceLine)
 	}
 	return total
 }
