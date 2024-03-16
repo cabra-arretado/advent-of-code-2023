@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"time"
 	"unicode"
 )
 
@@ -74,8 +75,17 @@ func substituteNumbers(s string) string {
 
 func main() {
 	filePath := "../inputs/day1_input.txt"
+	startQ1 := time.Now()
+	resultQ1 := utils.ReadFile(filePath, callbackQ1)
+	elapsedQ1 := time.Since(startQ1)
 
-	fmt.Println("Day 1")
-	fmt.Println("Question 1", utils.ReadFile(filePath, callbackQ1))
-	fmt.Println("Question 2", utils.ReadFile(filePath, callbackQ2))
+	startQ2 := time.Now()
+	resultQ2 := utils.ReadFile(filePath, callbackQ2)
+	elapsedQ2 := time.Since(startQ2)
+
+	fmt.Println("Question 1:", resultQ1)
+	fmt.Println("Question 2:", resultQ2)
+
+	fmt.Println("Question 1 elapsed time:", elapsedQ1)
+	fmt.Println("Question 2 elapsed time:", elapsedQ2)
 }
