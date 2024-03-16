@@ -1,5 +1,8 @@
 package main
 
+// In this one there are two different ways to consume the file.
+// The first one is using a callback function and the second one is using a matrix of runes.
+
 import (
 	"advent-of-code-2023/utils"
 	"bufio"
@@ -73,19 +76,65 @@ func substituteNumbers(s string) string {
 	return s
 }
 
+func processLine1Matrix(slice []rune) int {
+	var total []rune
+	for _, char := range slice {
+		if unicode.IsDigit(char) {
+			total = append(total, char)
+			break
+		}
+	}
+	for i := len(slice) - 1; i >= 0; i-- {
+		if unicode.IsDigit(slice[i]) {
+			total = append(total, slice[i])
+			break
+		}
+	}
+	totalString := string(total)
+	totalInt, err := strconv.Atoi(totalString)
+	if err != nil {
+		panic(err)
+	}
+	return totalInt
+}
+
+func matrixQ1(matrix [][]rune) int {
+	var total int
+	for _, slice := range matrix {
+		total += processLine1Matrix(slice)
+	}
+	return total
+}
+func matrixQ2(matrix [][]rune) int {
+	var total int
+	for _, slice := range matrix {
+		line := string(slice)
+		line = substituteNumbers(line)
+		total += processLine1(line)
+	}
+	return total
+}
+
 func main() {
 	filePath := "../inputs/day1_input.txt"
-	startQ1 := time.Now()
+	start1 := time.Now()
 	resultQ1 := utils.ReadFile(filePath, callbackQ1)
-	elapsedQ1 := time.Since(startQ1)
 
-	startQ2 := time.Now()
 	resultQ2 := utils.ReadFile(filePath, callbackQ2)
-	elapsedQ2 := time.Since(startQ2)
-
+	elapsed1 := time.Since(start1)
 	fmt.Println("Question 1:", resultQ1)
 	fmt.Println("Question 2:", resultQ2)
+	fmt.Println("Execution time with Callback:", elapsed1)
 
-	fmt.Println("Question 1 elapsed time:", elapsedQ1)
-	fmt.Println("Question 2 elapsed time:", elapsedQ2)
+	fmt.Println(("-------------------"))
+
+	matrix := utils.ReadFileAsMatrix(filePath)
+	start2 := time.Now()
+	resultQ1Matrix := matrixQ1(matrix)
+	resultQ2Matrix := matrixQ2(matrix)
+	elapsed2 := time.Since(start2)
+
+	fmt.Println("Question 1:", resultQ1Matrix)
+	fmt.Println("Question 2:", resultQ2Matrix)
+	fmt.Println("Execution time with Matrix:", elapsed2)
 }
