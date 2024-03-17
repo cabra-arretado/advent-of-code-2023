@@ -6,6 +6,8 @@ import (
 	"os"
 )
 
+const baseFilePath string = "../inputs/day"
+
 // ReadFile reads a file and returns a scanner object
 func ReadFile(file_path string, callback func(*bufio.Scanner) int) int {
 	file, err := os.Open(file_path)
@@ -19,9 +21,12 @@ func ReadFile(file_path string, callback func(*bufio.Scanner) int) int {
 }
 
 // ReadFileAsMatrix reads a file and returns a matrix of runes
-func ReadFileAsMatrix(file_path string) [][]rune {
-	file, err := os.Open(file_path)
+func ReadFileAsMatrix(dayNumber string) [][]rune {
+	base := baseFilePath + dayNumber + "_input.txt"
+	fmt.Println(base)
+	file, err := os.Open(base)
 	if err != nil {
+		fmt.Println(base)
 		panic(err)
 	}
 	defer file.Close()

@@ -119,15 +119,15 @@ func matrixQ2(matrix [][]rune) int {
 }
 
 func main() {
-	filePath := "../inputs/day1_input.txt"
-	start1 := time.Now()
-	resultQ1 := utils.ReadFile(filePath, callbackQ1)
+	filePath := "1"
+	// start1 := time.Now()
+	// resultQ1 := utils.ReadFile(filePath, callbackQ1)
 
-	resultQ2 := utils.ReadFile(filePath, callbackQ2)
-	elapsed1 := time.Since(start1)
-	fmt.Println("Question 1:", resultQ1)
-	fmt.Println("Question 2:", resultQ2)
-	fmt.Println("Execution time with Callback:", elapsed1)
+	// resultQ2 := utils.ReadFile(filePath, callbackQ2)
+	// elapsed1 := time.Since(start1)
+	// fmt.Println("Question 1:", resultQ1)
+	// fmt.Println("Question 2:", resultQ2)
+	// fmt.Println("Execution time with Callback:", elapsed1)
 
 	fmt.Println(("-------------------"))
 
