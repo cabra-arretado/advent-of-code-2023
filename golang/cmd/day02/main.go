@@ -24,7 +24,31 @@ func part1(slice []string) int {
 }
 
 func part2(slice []string) int {
-	return 0
+	var total int
+	for _, line := range slice {
+		total += processLine2(line)
+	}
+	return total
+}
+
+func processLine2(line string) int {
+	// Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
+	games := extractGames(line)
+	gameLimits := map[string]int{
+		"red":   1,
+		"green": 1,
+		"blue":  1,
+	}
+
+	for _, game := range games {
+		for _, pair := range strings.Split(game, ",") {
+			color, number := extractColorAndNumber(pair)
+			if number > gameLimits[color] {
+				gameLimits[color] = number
+			}
+		}
+	}
+	return gameLimits["red"] * gameLimits["green"] * gameLimits["blue"]
 }
 
 func processLine1(line string) bool {
