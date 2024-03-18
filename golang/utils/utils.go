@@ -45,6 +45,28 @@ func ReadFileAsMatrix(dayNumber string) [][]rune {
 	return matrix
 }
 
+func ReadFileAsSlice(dayNumber string) []string {
+	base := baseFilePath + dayNumber + "_input.txt"
+	file, err := os.Open(base)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	var slice []string
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := scanner.Text()
+		slice = append(slice, line)
+	}
+
+	if err := scanner.Err(); err != nil {
+		panic(err)
+	}
+
+	return slice
+}
+
 func PrintHelloWorld() {
 	fmt.Println("Hello World")
 }
