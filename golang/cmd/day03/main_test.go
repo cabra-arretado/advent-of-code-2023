@@ -43,3 +43,18 @@ func TestFindFullNumber(t *testing.T) {
 		t.Errorf("Test case 4 failed. Expected (%s, %d), but got (%s, %d)", expected4Index, expected4Num, actual4Index, actual4Num)
 	}
 }
+
+func testTouchesSymbol(t *testing.T) {
+	matrix := [][]rune{
+		{'a', '(', '2'},
+		{'c', '4', '5'},
+		{'5', '*', 'i'},
+	}
+
+	// Test case 1: Symbol in the middle of the row
+	expected1 := true
+	actual1 := touchesSymbol(matrix, 0, 0)
+	if actual1 != expected1 {
+		t.Errorf("Test case 1 failed. Expected %t, but got %t", expected1, actual1)
+	}
+}
