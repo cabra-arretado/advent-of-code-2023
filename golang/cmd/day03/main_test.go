@@ -44,7 +44,7 @@ func TestFindFullNumber(t *testing.T) {
 	}
 }
 
-func testTouchesSymbol(t *testing.T) {
+func TestTouchesSymbol(t *testing.T) {
 	matrix := [][]rune{
 		{'a', '(', '2'},
 		{'c', '4', '5'},
