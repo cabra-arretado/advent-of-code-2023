@@ -8,7 +8,12 @@ import (
 )
 
 func part1(matrix [][]rune) int {
+	//TODO
 	return 0
+}
+
+func isSymbol(r rune) bool {
+	return !unicode.IsDigit(r) || r != '.'
 }
 
 func touchesSymbol(matrix [][]rune, row int, col int) bool {
@@ -25,10 +30,13 @@ func touchesSymbol(matrix [][]rune, row int, col int) bool {
 	for i := 0; i < len(directions); i++ {
 		newRow := row + directions[i][0]
 		newCol := col + directions[i][1]
-		if unicode.IsDigit(matrix[newRow][newCol]) || matrix[newRow][newCol] == '.' {
+		if newRow < 0 || newCol < 0 {
 			continue
 		}
-		if unicode.IsSymbol(matrix[newRow][newCol]) {
+		if newRow > len(matrix) || newCol > len(matrix[row]) {
+			continue
+		}
+		if isSymbol(matrix[newRow][newCol]) {
 			return true
 		}
 	}
@@ -36,13 +44,15 @@ func touchesSymbol(matrix [][]rune, row int, col int) bool {
 }
 
 // findFullNumber finds the full number in the matrix
-// returns tuple: (row-col of the first digit, number)
-func findFullNumber(matrix [][]rune, row int, col int) (string, int) {
+// returns tuple: (row-col of the first digit, entire number, and it touches a symbol bool)
+func findFullNumber(matrix [][]rune, row int, col int) (string, int, bool) {
+	touched := false
 	initIndex := col
 	number := "" + string(matrix[row][col])
 	i := col + 1
 	for i < len(matrix[row]) {
 		if unicode.IsDigit(matrix[row][i]) {
+			touched = touchesSymbol(matrix, row, i)
 			number += string(matrix[row][i])
 			i++
 		} else {
@@ -52,6 +62,7 @@ func findFullNumber(matrix [][]rune, row int, col int) (string, int) {
 	i = initIndex - 1
 	for i >= 0 {
 		if unicode.IsDigit(matrix[row][i]) {
+			touched = touchesSymbol(matrix, row, i)
 			number = string(matrix[row][i]) + number
 			initIndex = i
 			i--
@@ -63,11 +74,11 @@ func findFullNumber(matrix [][]rune, row int, col int) (string, int) {
 	if err != nil {
 		panic(err)
 	}
-	return strconv.Itoa(row) + "-" + strconv.Itoa(initIndex), num
+	return strconv.Itoa(row) + "-" + strconv.Itoa(initIndex), num, touched
 }
 
 func main() {
+	//TODO
 	matrix := utils.ReadFileAsMatrix("3")
 	fmt.Println(rune(matrix[0][0]))
-
 }
