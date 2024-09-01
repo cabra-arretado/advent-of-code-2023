@@ -25,7 +25,7 @@ func part1(matrix [][]rune) int {
 }
 
 func isSymbol(r rune) bool {
-	return !unicode.IsDigit(r) || r != '.'
+	return r != '.' && !unicode.IsDigit(r) && !unicode.IsLetter(r)
 }
 
 func touchesSymbol(matrix [][]rune, row int, col int) bool {
@@ -45,12 +45,10 @@ func touchesSymbol(matrix [][]rune, row int, col int) bool {
 		if newRow < 0 || newCol < 0 {
 			continue
 		}
-		if newRow > len(matrix) || newCol > len(matrix[row]) {
+		if newRow >= len(matrix) || newCol >= len(matrix[0]) {
 			continue
 		}
 		if isSymbol(matrix[newRow][newCol]) {
-	fmt.Println("Symbol found at: ", newRow, newCol, " with rune: ", matrix[newRow][newCol])
-			// this is how to print the rune
 			return true
 		}
 	}
@@ -67,9 +65,7 @@ func findFullNumber(matrix [][]rune, row int, col int) (string, int, bool) {
 	for i < len(matrix[row]) {
 		if unicode.IsDigit(matrix[row][i]) {
 			if !touched {
-				// fmt.Println("Checking if touches symbol: ", row, i)
 				touched = touchesSymbol(matrix, row, i)
-				// fmt.Println("Touched: ", touched)
 			}
 			number += string(matrix[row][i])
 			i++
@@ -81,9 +77,7 @@ func findFullNumber(matrix [][]rune, row int, col int) (string, int, bool) {
 	for i >= 0 {
 		if unicode.IsDigit(matrix[row][i]) {
 			if !touched {
-				// fmt.Println("Checking if touches symbol: ", row, i)
 				touched = touchesSymbol(matrix, row, i)
-				// fmt.Println("Touched: ", touched)
 			}
 			number = string(matrix[row][i]) + number
 			initIndex = i
@@ -100,7 +94,8 @@ func findFullNumber(matrix [][]rune, row int, col int) (string, int, bool) {
 }
 
 func main() {
-	//TODO
 	matrix := utils.ReadFileAsMatrix("3")
-	fmt.Println(rune(matrix[0][0]))
+	result := part1(matrix)
+	fmt.Println(result)
+	fmt.Println("pass?", result == 544664)
 }

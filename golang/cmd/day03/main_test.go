@@ -1,9 +1,38 @@
 package main
 
 import (
-	// "strings"
+	"strings"
 	"testing"
 )
+
+func TestIsSymbol(t *testing.T) {
+	// Test case 1: Symbol
+	expected1 := true
+	actual1 := isSymbol('*')
+	if actual1 != expected1 {
+		t.Errorf("Test case 1 failed. Expected %t, but got %t", expected1, actual1)
+	}
+
+	// Test case 2: Number
+	expected2 := false
+	actual2 := isSymbol('1')
+	if actual2 != expected2 {
+		t.Errorf("Test case 2 failed. Expected %t, but got %t", expected2, actual2)
+	}
+
+	// Test case 3: Dot
+	expected3 := false
+	actual3 := isSymbol('.')
+	if actual3 != expected3 {
+		t.Errorf("Test case 3 failed. Expected %t, but got %t", expected3, actual3)
+	}
+	// Test case 4: Letter
+	expected4 := false
+	actual4 := isSymbol('a')
+	if actual4 != expected4 {
+		t.Errorf("Test case 4 failed. Expected %t, but got %t", expected4, actual4)
+	}
+}
 
 func TestFindFullNumber(t *testing.T) {
 	matrix := [][]rune{
@@ -25,9 +54,9 @@ func TestFindFullNumber(t *testing.T) {
 	expected2Index := "1-1"
 	expected2Num := 456
 	actual2Index, actual2Num, touches2 := findFullNumber(matrix, 1, 1)
-	touchesSymbol2 := true
+	touchesSymbol2 := false
 	if actual2Index != expected2Index || actual2Num != expected2Num || touchesSymbol2 != touches2 {
-		t.Errorf("Test case 2 failed. Expected (%s, %d), but got (%s, %d)", expected2Index, expected2Num, actual2Index, actual2Num)
+		t.Errorf("Test case 2 failed. Expected (%s, %d, %t), but got (%s, %d, %t)", expected2Index, expected2Num, touchesSymbol2, actual2Index, actual2Num, touches2)
 	}
 
 	// Test case 3: Number alone in the first column
@@ -51,24 +80,25 @@ func TestFindFullNumber(t *testing.T) {
 
 func TestTouchesSymbol(t *testing.T) {
 	matrix := [][]rune{
-		{'a', '(', '2'},
-		{'c', '4', '5'},
-		{'5', '*', 'i'},
-		{'5', '.', 'i'},
-		{'5', '.', 'i'},
+		{'a', '(', '.'},
+		{'c', '4', '.'},
+		{'5', '*', '.'},
+		{'2', '.', 'u'},
+		{'9', '.', '4'},
 	}
 
 	// Test case 1: Symbol in the middle of the row
-	// expected1 := true
-	// actual1 := touchesSymbol(matrix, 0, 0)
-	// if actual1 != expected1 {
-	// 	t.Errorf("Test case 1 failed. Expected %t, but got %t", expected1, actual1)
-	// }
-	// expected2 := true
-	// actual2 := touchesSymbol(matrix, 0, 0)
-	// if actual2 != expected2 {
-	// 	t.Errorf("Test case 2 failed. Expected %t, but got %t", expected2, actual2)
-	// }
+	expected1 := true
+	actual1 := touchesSymbol(matrix, 0, 0)
+	if actual1 != expected1 {
+		t.Errorf("Test case 1 failed. Expected %t, but got %t", expected1, actual1)
+	}
+
+	expected2 := true
+	actual2 := touchesSymbol(matrix, 0, 0)
+	if actual2 != expected2 {
+		t.Errorf("Test case 2 failed. Expected %t, but got %t", expected2, actual2)
+	}
 	//TODO: This is the problem
 	expected3 := false
 	actual3 := touchesSymbol(matrix, 4, 2)
@@ -77,29 +107,29 @@ func TestTouchesSymbol(t *testing.T) {
 	}
 }
 
-// func TestDay1(t *testing.T) {
-// 	// Test case 1
-// providedExample := 
-// `467..114..
-// ...*......
-// ..35..633.
-// ......#...
-// 617*......
-// .....+.58.
-// ..592.....
-// ......755.
-// ...$.*....
-// .664.598..`
-// 	splited := strings.Split(providedExample, "\n")
-// 	matrix := make([][]rune, len(splited))
-// 	for i, s := range splited {
-// 		matrix[i] = []rune(s)
-// 	}
-// 	expected := 4361
-// 	actual := part1(matrix)
-//
-// 	if actual != expected {
-// 		t.Errorf("Test case 1 failed. Expected %d, but got %d", expected, actual)
-// 	}
-// }
-//
+func TestDay1(t *testing.T) {
+	// Test case 1
+providedExample := 
+`467..114..
+...*......
+..35..633.
+......#...
+617*......
+.....+.58.
+..592.....
+......755.
+...$.*....
+.664.598..`
+	splited := strings.Split(providedExample, "\n")
+	matrix := make([][]rune, len(splited))
+	for i, s := range splited {
+		matrix[i] = []rune(s)
+	}
+	expected := 4361
+	actual := part1(matrix)
+
+	if actual != expected {
+		t.Errorf("Test case 1 failed. Expected %d, but got %d", expected, actual)
+	}
+}
+
