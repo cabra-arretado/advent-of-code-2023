@@ -69,6 +69,7 @@ func TestTouchesSymbol(t *testing.T) {
 	// if actual2 != expected2 {
 	// 	t.Errorf("Test case 2 failed. Expected %t, but got %t", expected2, actual2)
 	// }
+	//TODO: This is the problem
 	expected3 := false
 	actual3 := touchesSymbol(matrix, 4, 2)
 	if actual3 != expected3 {
