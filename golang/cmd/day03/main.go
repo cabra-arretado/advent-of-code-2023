@@ -8,8 +8,20 @@ import (
 )
 
 func part1(matrix [][]rune) int {
-	//TODO
-	return 0
+	total := 0
+	touchedIndexList := make(map[string]int)
+	for i := 0; i < len(matrix); i++ {
+		for ii := 0; ii < len(matrix[i]); ii++ {
+			if unicode.IsDigit(matrix[i][ii]) {
+				index, num, touched := findFullNumber(matrix, i, ii)
+				if touched && touchedIndexList[index] == 0 {
+					touchedIndexList[index] = num
+					total += num
+				}
+			}
+		}
+	}
+	return total
 }
 
 func isSymbol(r rune) bool {
@@ -37,6 +49,8 @@ func touchesSymbol(matrix [][]rune, row int, col int) bool {
 			continue
 		}
 		if isSymbol(matrix[newRow][newCol]) {
+	fmt.Println("Symbol found at: ", newRow, newCol, " with rune: ", matrix[newRow][newCol])
+			// this is how to print the rune
 			return true
 		}
 	}
@@ -52,7 +66,11 @@ func findFullNumber(matrix [][]rune, row int, col int) (string, int, bool) {
 	i := col + 1
 	for i < len(matrix[row]) {
 		if unicode.IsDigit(matrix[row][i]) {
-			touched = touchesSymbol(matrix, row, i)
+			if !touched {
+				// fmt.Println("Checking if touches symbol: ", row, i)
+				touched = touchesSymbol(matrix, row, i)
+				// fmt.Println("Touched: ", touched)
+			}
 			number += string(matrix[row][i])
 			i++
 		} else {
@@ -62,7 +80,11 @@ func findFullNumber(matrix [][]rune, row int, col int) (string, int, bool) {
 	i = initIndex - 1
 	for i >= 0 {
 		if unicode.IsDigit(matrix[row][i]) {
-			touched = touchesSymbol(matrix, row, i)
+			if !touched {
+				// fmt.Println("Checking if touches symbol: ", row, i)
+				touched = touchesSymbol(matrix, row, i)
+				// fmt.Println("Touched: ", touched)
+			}
 			number = string(matrix[row][i]) + number
 			initIndex = i
 			i--
