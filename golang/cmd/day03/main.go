@@ -60,8 +60,8 @@ func touchesSymbol(matrix [][]rune, row int, col int) bool {
 func findFullNumber(matrix [][]rune, row int, col int) (string, int, bool) {
 	touched := false
 	initIndex := col
-	number := "" + string(matrix[row][col])
-	i := col + 1
+	number := ""
+	i := col
 	for i < len(matrix[row]) {
 		if unicode.IsDigit(matrix[row][i]) {
 			if !touched {

@@ -66,7 +66,3 @@ func ReadFileAsSlice(dayNumber string) []string {
 
 	return slice
 }
-
-func PrintHelloWorld() {
-	fmt.Println("Hello World")
-}
