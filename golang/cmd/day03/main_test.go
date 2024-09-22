@@ -1,4 +1,4 @@
-package main
+package day03
 
 import (
 	"strings"
@@ -45,8 +45,8 @@ func TestFindFullNumber(t *testing.T) {
 	expected1Index := "0-1"
 	expected1Num := 123
 	touchesSymbol1 := true
-	actual1Index, actual1Num, touches:= findFullNumber(matrix, 0, 3)
-	if actual1Index != expected1Index || actual1Num != expected1Num || touchesSymbol1 != touches  {
+	actual1Index, actual1Num, touches := findFullNumber(matrix, 0, 3)
+	if actual1Index != expected1Index || actual1Num != expected1Num || touchesSymbol1 != touches {
 		t.Errorf("Test case 1 failed. Expected (%s, %d), but got (%s, %d)", expected1Index, expected1Num, actual1Index, actual1Num)
 	}
 
@@ -109,8 +109,8 @@ func TestTouchesSymbol(t *testing.T) {
 
 func TestDay1(t *testing.T) {
 	// Test case 1
-providedExample := 
-`467..114..
+	providedExample :=
+		`467..114..
 ...*......
 ..35..633.
 ......#...
@@ -126,10 +126,9 @@ providedExample :=
 		matrix[i] = []rune(s)
 	}
 	expected := 4361
-	actual := part1(matrix)
+	actual := Part1(matrix)
 
 	if actual != expected {
 		t.Errorf("Test case 1 failed. Expected %d, but got %d", expected, actual)
 	}
 }
-
