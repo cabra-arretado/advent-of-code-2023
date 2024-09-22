@@ -3,7 +3,8 @@
 To run the code use the following command:
 
 ```bash
-go run cmd/dayXX/main.go
+go run cmd/main.go
 ```
+insert the day with two digits to run the code for that day when prompted.
+e.g. Day 1 would be `01`
 
-Where `XX` is the day number.
