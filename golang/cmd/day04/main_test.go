@@ -50,9 +50,8 @@ func Contains(s []string, e string) bool {
 func processLine(rawLine string) (result int) {
 	loteryNumbers, givenNumbers := BreakNumbers(rawLine)
 	generalTotal := 0
-	inTotal := 0
+	total := 0
 	for _, number := range loteryNumbers {
-		total := 0
 		if Contains(givenNumbers, number) {
 			if total == 0 {
 				total += 1
@@ -60,10 +59,9 @@ func processLine(rawLine string) (result int) {
 				total *= 2
 			}
 		}
-		inTotal += total
 	}
 
-	generalTotal += inTotal
+	generalTotal += total
 	return generalTotal
 
 }
