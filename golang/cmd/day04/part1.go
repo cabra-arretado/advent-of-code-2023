@@ -1,6 +1,8 @@
 package day04
 
-import ("fmt")
+import (
+	"fmt"
+)
 
 func Part1(matrix [][]string) int {
 
