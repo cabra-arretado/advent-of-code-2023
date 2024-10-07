@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 	"testing"
+	"advent-of-code-2023/utils"
 )
 
 // 	givenExample:= `Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
@@ -14,9 +15,14 @@ import (
 // Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11`
 
 func Test1(t *testing.T) {
+	
 	fmt.Println("First test")
-
-	fmt.Println(processLine("Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53"))
+	lines := utils.ReadFileAsSlice("4")
+	total := 0
+	for _, line := range lines {
+		total += processLine(line)
+	}
+	fmt.Println(total)
 }
 
 func BreakNumbers(s string) (slice []string, slice2 []string) {
@@ -60,8 +66,7 @@ func processLine(rawLine string) (result int) {
 			}
 		}
 	}
-
 	generalTotal += total
 	return generalTotal
-
 }
+
