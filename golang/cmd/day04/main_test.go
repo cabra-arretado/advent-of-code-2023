@@ -2,7 +2,6 @@ package day04
 
 import (
 	"fmt"
-	"strings"
 	"testing"
 	"advent-of-code-2023/utils"
 )
@@ -24,49 +23,3 @@ func Test1(t *testing.T) {
 	}
 	fmt.Println(total)
 }
-
-func BreakNumbers(s string) (slice []string, slice2 []string) {
-	fullString := strings.Split(s, "|")
-	rawLotery := fullString[0]
-	rawGivenNumbers := fullString[1]
-	lotery := gotLoterryNumbers(rawLotery)
-	givenNumbers := gotGivenNumbers(rawGivenNumbers)
-	return lotery, givenNumbers
-}
-
-func gotLoterryNumbers(s string) (slice []string) {
-	fullString := strings.Split(s, ":")
-	loteryNumbers := strings.Fields(fullString[1])
-	return loteryNumbers
-}
-func gotGivenNumbers(s string) (slice []string) {
-	givenNumbers := strings.Fields(s)
-	return givenNumbers
-}
-
-func Contains(s []string, e string) bool {
-	for _, a := range s {
-		if a == e {
-			return true
-		}
-	}
-	return false
-}
-
-func processLine(rawLine string) (result int) {
-	loteryNumbers, givenNumbers := BreakNumbers(rawLine)
-	generalTotal := 0
-	total := 0
-	for _, number := range loteryNumbers {
-		if Contains(givenNumbers, number) {
-			if total == 0 {
-				total += 1
-			} else {
-				total *= 2
-			}
-		}
-	}
-	generalTotal += total
-	return generalTotal
-}
-
