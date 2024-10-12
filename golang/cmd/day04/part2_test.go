@@ -56,11 +56,18 @@ func processCard2(rawString string) Card {
 	fullString := strings.Split(s[1], "|")
 	rawLotery := fullString[0]
 	rawGivenNumbers := fullString[1]
-	lotery := gotLoterryNumbers(rawLotery)
-	givenNumbers := gotGivenNumbers(rawGivenNumbers)
+	lotery := getNumbers(rawLotery)
+	givenNumbers := getNumbers(rawGivenNumbers)
 	matches := getMatchNumber(lotery, givenNumbers)
+	// fmt.Println("Card: ", cardNumber, "Matches: ", matches)
 	card := Card{cardNumber, matches, lotery, givenNumbers, 1}
 	return card
+}
+
+func getNumbers(s string) []string {
+	// That was bugging when using the first one
+	s = strings.Trim(s, " ")
+	return strings.Fields(s)
 }
 
 func getMatchNumber(loteryNumbers []string, givenNumbers []string) int {
