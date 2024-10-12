@@ -7,12 +7,6 @@ import (
 	"testing"
 )
 
-type Card struct {
-	quantity      int
-	loteryNumbers []string
-	givenNumbers  []string
-}
-
 func Test2(t *testing.T) {
 	givenExample := `Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
 Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19
@@ -20,71 +14,77 @@ Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1
 Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83
 Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
 Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11`
-
+	fmt.Println("PartII: ", Part2(strings.Split(givenExample, "\n")))
 }
 
 func Part2(lines []string) int {
-	cards := make(map[int]Card)
 	total := 0
-	// Initial processing
+	hashMap := make(map[int]Card)
+	queue := []Card{}
 	for _, line := range lines {
-		cardNumber, card := processCard(line)
-		cards[cardNumber] = card
+		card := processCard2(line)
+		hashMap[card.cardNumber] = card
+		queue = append(queue, card)
 	}
-	// Processing the cards per si
-	// for cardNumber, card := range cards {
-	// 	// 1-Countains2
-	// 	// 2-AddMoreCards
-	//
-	// }
-	fmt.Println(total)
-	return total
-}
-func addMoreCards(cards map[int]Card, initialCardNumber int, quantity int) {
-	for i := 1; i < quantity; i++ {
-		card, exists := cards[i+initialCardNumber]
-		if exists {
-			card.quantity += 1
-		} else {
-			panic("Card does not exist")
+	for _, ea := range queue {
+		if ea.numberOfMatches > 0 {
+			addCardsToFollowingCard(queue, ea, hashMap)
 		}
 	}
 
+	for _, ea := range hashMap {
+		total += ea.copies
+	}
+
+	return total
 }
 
-func processCard(rawString string) (number int, c Card) {
+type Card struct {
+	cardNumber      int
+	numberOfMatches int
+	loteryNumbers   []string
+	givenNumbers    []string
+	copies          int
+}
+
+func processCard2(rawString string) Card {
 	s := strings.Split(rawString, ":")
-	cardNumberString := strings.Fields(s[0])[1]
-	cardNumber, err := strconv.Atoi(cardNumberString)
+	cardNumber, err := strconv.Atoi(strings.Fields(s[0])[1])
 	if err != nil {
-		fmt.Println("Could not convert card number to int")
+		panic("Could not convert number")
 	}
 	fullString := strings.Split(s[1], "|")
 	rawLotery := fullString[0]
 	rawGivenNumbers := fullString[1]
 	lotery := gotLoterryNumbers(rawLotery)
 	givenNumbers := gotGivenNumbers(rawGivenNumbers)
-	card := Card{1, lotery, givenNumbers}
-	return cardNumber, card
+	matches := getMatchNumber(lotery, givenNumbers)
+	card := Card{cardNumber, matches, lotery, givenNumbers, 1}
+	return card
 }
 
-func Contains2(s []string, e string) bool {
-	for _, a := range s {
-		if a == e {
-			return true
+func getMatchNumber(loteryNumbers []string, givenNumbers []string) int {
+	count := 0
+	for _, lotery := range loteryNumbers {
+		for _, given := range givenNumbers {
+			if lotery == given {
+				count++
+			}
 		}
 	}
-	return false
+	return count
 }
 
-func processLine2(loteryNumbers []string, givenNumbers []string) (result int) {
-	generalTotal := 0
-	total := 0
-	for _, number := range loteryNumbers {
-		if Contains2(givenNumbers, number) {
-			total += 1
+func addCardsToFollowingCard(queue []Card, currentCard Card, instances map[int]Card) {
+	if currentCard.numberOfMatches <= 0 {
+		return
+	}
+	for i := 1; i < currentCard.numberOfMatches+1; i++ {
+		nextCardNumber := currentCard.cardNumber + i
+		if _, ok := instances[nextCardNumber]; ok {
+			nextCard := instances[nextCardNumber]
+			nextCard.copies++
+			queue = append(queue, nextCard)
 		}
 	}
-	generalTotal += total
-	return generalTotal
 }
