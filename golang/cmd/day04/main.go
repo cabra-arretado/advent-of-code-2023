@@ -14,6 +14,6 @@ func Day04() {
 	fmt.Println("Part I:", result)
 
 	// ---- Part 2 ----
-	// result = Part2(matrix)
+	result = Part2(slice)
 	fmt.Println("Part II:", result)
 }
