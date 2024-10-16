@@ -20,6 +20,15 @@ func ReadFile(file_path string, callback func(*bufio.Scanner) int) int {
 	return callback(scanner)
 }
 
+func ReadFileAsString(dayNumber string) string {
+	data, err := os.ReadFile(baseFilePath + dayNumber + "_input.txt")
+	if err != nil {
+		panic(err)
+	}
+	fileContent := string(data)
+	return fileContent
+}
+
 // ReadFileAsMatrix reads a file and returns a matrix of runes
 func ReadFileAsMatrix(dayNumber string) [][]rune {
 	base := baseFilePath + dayNumber + "_input.txt"

@@ -19,6 +19,8 @@ func main() {
 		day03.Day03()
 	case "04":
 		day04.Day04()
+	case "05":
+		day04.Day04()
 	default:
 		fmt.Println("Day not found")
 	}

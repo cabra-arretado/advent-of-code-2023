@@ -13,7 +13,7 @@ func Day04() {
 	result := Part1(slice)
 	fmt.Println("Part I:", result)
 
-	// ---- Part 2 ----
-	result = Part2(slice)
-	fmt.Println("Part II:", result)
+	// // ---- Part 2 ----
+	// result = Part2(slice)
+	// fmt.Println("Part II:", result)
 }
