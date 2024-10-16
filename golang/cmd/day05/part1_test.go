@@ -2,6 +2,7 @@ package day05
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 	"testing"
 )
@@ -41,11 +42,23 @@ temperature-to-humidity map:
 humidity-to-location map:
 60 56 37
 56 93 4`
-	fmt.Println(len(givenExample)) // Just for no errors for now
+	chunks := strings.Split(givenExample, "\n\n")
+	seedsChunk := chunks[0]
+	chunks = chunks[1:]
 
-	lines := strings.Split(givenExample, "\n\n")
-	for _, ea := range lines {
-		fmt.Println(ea)
+	//Let's get all the seeds
+	seeds := make([]int, 0)
+	seedLines := strings.Trim(seedsChunk, "seeds: ")
+	for _, line := range strings.Split(seedLines, "\n") {
+		for _, seed := range strings.Split(line, " ") {
+			seedNumber, err := strconv.Atoi(seed)
+			if err != nil {
+				panic(fmt.Sprintf("Error converting seed to int: %v\n", seed))
+			}
+			seeds = append(seeds, seedNumber)
+		}
 	}
+	fmt.Println(seeds)
+	// -- END get all seeds
 
 }
