@@ -61,4 +61,16 @@ humidity-to-location map:
 	fmt.Println(seeds)
 	// -- END get all seeds
 
+	for i, chunk := range chunks {
+		// ignore first line
+		maps := make([][]int, 0)
+		fmt.Printf("Chunk %d\n", i)
+		lines := strings.Split(chunk, "\n")[1:]
+		for _, line := range lines {
+			var destRange, sourceRange, rangeLength string
+			fmt.Sscanf(line, "%s %s %s", &destRange, &sourceRange, &rangeLength)
+			fmt.Printf("destRange: %s, sourceRange: %s, rangeLength: %s\n", destRange, sourceRange, rangeLength)
+		}
+	}
+
 }
