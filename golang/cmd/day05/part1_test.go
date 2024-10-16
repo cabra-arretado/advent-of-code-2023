@@ -70,6 +70,7 @@ humidity-to-location map:
 			var destRange, sourceRange, rangeLength string
 			fmt.Sscanf(line, "%s %s %s", &destRange, &sourceRange, &rangeLength)
 			fmt.Printf("destRange: %s, sourceRange: %s, rangeLength: %s\n", destRange, sourceRange, rangeLength)
+			maps = append(maps, []int{int(destRange[0]), int(sourceRange[0]), int(rangeLength[0])})
 		}
 	}
 
