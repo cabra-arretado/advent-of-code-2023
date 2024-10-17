@@ -54,12 +54,25 @@ func TestDay05PartII(t *testing.T) {
 	//Let's get all the seeds
 	seeds := make([]int, 0)
 	seedLines := strings.TrimPrefix(seedsChunk, "seeds: ")
-	fmt.Println("seedLines", seedLines)
-	// for _, line := range seedLines {
-	// 	if (len(seedNumbers) % 2) != 0 {
-	// 		panic(fmt.Sprintf("Error: seeds are not in pairs: %v\n", seedNumbers))
-	// 	}
-	// }
+	for _, line := range strings.Split(seedLines, "\n") {
+		seedNumbers := strings.Fields(line)
+		if (len(seedNumbers) % 2) != 0 {
+			panic(fmt.Sprintf("Error: seeds are not in pairs: %v\n", seedNumbers))
+		}
+		for i := 0; i < len(seedNumbers); i += 2 {
+			seedStart, err := strconv.Atoi(seedNumbers[i])
+			if err != nil {
+				panic(fmt.Sprintf("Error converting seed to int: %v\n", seedNumbers[i]))
+			}
+			length, err := strconv.Atoi(seedNumbers[i+1])
+			if err != nil {
+				panic(fmt.Sprintf("Error converting seed to int: %v\n", seedNumbers[i+1]))
+			}
+			for j := seedStart; j <= seedStart+length-1; j++ {
+				seeds = append(seeds, j)
+			}
+		}
+	}
 
 	actualSeeds := seeds
 	expectedSeeds := []int{79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67}
