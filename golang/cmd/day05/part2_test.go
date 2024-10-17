@@ -2,12 +2,15 @@ package day05
 
 import (
 	"fmt"
-	"strconv"
-	"strings"
 	"testing"
+	"reflect"
+	"strings"
+	"strconv"
 )
 
-//TODO: We just have to change the input conssuption
+func compareSlices(slice1 []int, slice2 []int) bool {
+	return reflect.DeepEqual(slice1, slice2)
+}
 
 func TestDay05PartII(t *testing.T) {
 	givenExample := `seeds: 79 14 55 13
@@ -43,6 +46,7 @@ func TestDay05PartII(t *testing.T) {
 	humidity-to-location map:
 	60 56 37
 	56 93 4`
+
 	chunks := strings.Split(givenExample, "\n\n")
 	seedsChunk := chunks[0]
 	chunks = chunks[1:]
@@ -60,49 +64,20 @@ func TestDay05PartII(t *testing.T) {
 			if len(duo) < 2 {
 				duo = append(duo, seedNumber)
 			} else {
-				for i := duo[0]; i <= duo[1]; i++ {
+				start := duo[0]
+				length := duo[1] - duo[0] + 1
+				for i := start; i <= length; i++ {
 					seeds = append(seeds, i)
 				}
 				duo = make([]int, 0)
 			}
 		}
-		fmt.Println(seeds)
-		// -- END get all seeds
-
-		for _, chunk := range chunks {
-			// ignore first line
-			maps := make([][]int, 0)
-			lines := strings.Split(chunk, "\n")[1:]
-			for _, line := range lines {
-				var destRange, sourceRange, rangeLength string
-				fmt.Sscanf(line, "%s %s %s", &destRange, &sourceRange, &rangeLength)
-				destRangeInt, _ := strconv.Atoi(destRange)
-				sourceRangeInt, _ := strconv.Atoi(sourceRange)
-				rangeLengthInt, _ := strconv.Atoi(rangeLength)
-				maps = append(maps, []int{destRangeInt, sourceRangeInt, rangeLengthInt})
-			}
-			newSeeds := make([]int, len(seeds))
-			for i, seed := range seeds {
-				for _, m := range maps {
-					if seed >= m[1] && seed <= m[1]+m[2] {
-						mappedValue := m[0] + (seed - m[1])
-						newSeeds[i] = mappedValue
-						break
-					} else {
-						newSeeds[i] = seed
-					}
-				}
-				seeds = newSeeds
-			}
-		}
-		minValue := 0
-		for _, seed := range seeds {
-			if seed < minValue {
-				minValue = seed
-			}
-
-		}
-		fmt.Println("Part II:", minValue, minValue == 46)
-
 	}
+	actualSeeds := seeds
+	expected := []int{79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67}
+	fmt.Println("actual", actualSeeds)
+	fmt.Println("expected", expected)
+	compare := compareSlices(actualSeeds, expected)
+	fmt.Println("compare", compare)
+
 }
