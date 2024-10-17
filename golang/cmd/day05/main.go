@@ -7,9 +7,9 @@ import (
 
 func Day05() {
 	file := utils.ReadFileAsString("5")
-	result := Part1(file)
-	fmt.Println("Part I:", result)
-	result = Part2(file)
+	// result := Part1(file)
+	// fmt.Println("Part I:", result)
+	result := Part2(file)
 	fmt.Println("Part II:", result)
 }
 

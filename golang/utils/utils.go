@@ -21,11 +21,15 @@ func ReadFile(file_path string, callback func(*bufio.Scanner) int) int {
 }
 
 func ReadFileAsString(dayNumber string) string {
+	fmt.Println("Starting to read file")
+	fmt.Println(baseFilePath + dayNumber + "_input.txt")
 	data, err := os.ReadFile(baseFilePath + dayNumber + "_input.txt")
 	if err != nil {
 		panic(err)
 	}
+
 	fileContent := string(data)
+	fmt.Println("File read")
 	return fileContent
 }
 
