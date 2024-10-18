@@ -32,8 +32,9 @@ func Part2(file string) int {
 			}
 			for j := seedStart; j <= seedStart+length-1; j++ {
 				seeds = append(seeds, j)
+				fmt.Println("inside line 35", j)
 			}
-			fmt.Println("inside line 36")
+			fmt.Println("inside line 37")
 		}
 	}
 
@@ -66,8 +67,8 @@ func Part2(file string) int {
 					newSeeds[i] = seed
 				}
 			}
-			seeds = newSeeds
 		}
+		seeds = newSeeds
 	}
 	minValue := seeds[0]
 	for _, seed := range seeds {
