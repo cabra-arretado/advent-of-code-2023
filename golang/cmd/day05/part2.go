@@ -6,37 +6,40 @@ import (
 	"strings"
 )
 
+type SeedRange struct {
+	start int
+	range   int
+}
+
+func getSeeds(seedsChunk string) []int {
+	seeds := make([]int, 0)
+	seedLines := strings.TrimPrefix(seedsChunk, "seeds: ")
+	for _, line := range strings.Split(seedLines, "\n") {
+		lineTrimed := strings.TrimSpace(line)
+		lineSplitted := strings.Split(lineTrimed, " ")
+		duo := make([]int,0, 2)
+		for _, seed := range lineSplitted {
+			seedInt, err := strconv.Atoi(seed)
+			if err != nil {
+				fmt.Println("error converting seed to int")
+			}
+			duo = append(duo, seedInt)
+			if len(duo) == 2 {
+				for i := duo[0]; i <= duo[0]+duo[1]-1; i++ {
+					seeds = append(seeds, i)
+				}
+				duo = make([]int,0, 2)
+			}
+		}
+	}
+	return seeds
+}
 func Part2(file string) int {
 	fmt.Println("Part II: Starting ")
 	chunks := strings.Split(file, "\n\n")
 	seedsChunk := chunks[0]
 	chunks = chunks[1:]
-
-	//Let's get all the seeds
-	seeds := make([]int, 0)
-	seedLines := strings.TrimPrefix(seedsChunk, "seeds: ")
-	for _, line := range strings.Split(seedLines, "\n") {
-		fmt.Println("inside line 19")
-		seedNumbers := strings.Fields(line)
-		if (len(seedNumbers) % 2) != 0 {
-			panic(fmt.Sprintf("Error: seeds are not in pairs: %v\n", seedNumbers))
-		}
-		for i := 0; i < len(seedNumbers); i += 2 {
-			seedStart, err := strconv.Atoi(seedNumbers[i])
-			if err != nil {
-				panic(fmt.Sprintf("Error converting seed to int: %v\n", seedNumbers[i]))
-			}
-			length, err := strconv.Atoi(seedNumbers[i+1])
-			if err != nil {
-				panic(fmt.Sprintf("Error converting seed to int: %v\n", seedNumbers[i+1]))
-			}
-			for j := seedStart; j <= seedStart+length-1; j++ {
-				seeds = append(seeds, j)
-				fmt.Println("inside line 35", j)
-			}
-			fmt.Println("inside line 37")
-		}
-	}
+	seeds := getSeeds(seedsChunk)
 
 	fmt.Println("line 40")
 
