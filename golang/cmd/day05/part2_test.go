@@ -3,17 +3,12 @@ package day05
 import (
 	"fmt"
 	"reflect"
-	"strconv"
-	"strings"
+	// "strconv"
+	// "strings"
 	"testing"
 )
 
-func compareSlices(slice1 []int, slice2 []int) bool {
-	return reflect.DeepEqual(slice1, slice2)
-}
-
-func TestDay05PartII(t *testing.T) {
-	givenExample := `seeds: 79 14 55 13
+var givenExample = `seeds: 79 14 55 13
 
 	seed-to-soil map:
 	50 98 2
@@ -47,38 +42,28 @@ func TestDay05PartII(t *testing.T) {
 	60 56 37
 	56 93 4`
 
-	chunks := strings.Split(givenExample, "\n\n")
-	seedsChunk := chunks[0]
-	chunks = chunks[1:]
+func compareSlices(slice1 []int, slice2 []int) bool {
+	return reflect.DeepEqual(slice1, slice2)
+}
 
-	//Let's get all the seeds
-	seeds := make([]int, 0)
-	seedLines := strings.TrimPrefix(seedsChunk, "seeds: ")
-	for _, line := range strings.Split(seedLines, "\n") {
-		seedNumbers := strings.Fields(line)
-		if (len(seedNumbers) % 2) != 0 {
-			panic(fmt.Sprintf("Error: seeds are not in pairs: %v\n", seedNumbers))
-		}
-		for i := 0; i < len(seedNumbers); i += 2 {
-			seedStart, err := strconv.Atoi(seedNumbers[i])
-			if err != nil {
-				panic(fmt.Sprintf("Error converting seed to int: %v\n", seedNumbers[i]))
-			}
-			length, err := strconv.Atoi(seedNumbers[i+1])
-			if err != nil {
-				panic(fmt.Sprintf("Error converting seed to int: %v\n", seedNumbers[i+1]))
-			}
-			for j := seedStart; j <= seedStart+length-1; j++ {
-				seeds = append(seeds, j)
-			}
-		}
-	}
+func TestGetSeeds(t *testing.T) {
+	seeds := getSeeds("seeds: 79 14 55 13")
+	expected := []SeedRange{{79, 14}, {55, 13}}
+	fmt.Println("Seeds: ", seeds)
+	fmt.Println("Expected: ", expected)
+	fmt.Println("Passes?", reflect.DeepEqual(seeds, expected))
+	secondExample := `seeds: 79 14 55 13
+18 9 199 231`
 
-	actualSeeds := seeds
-	expectedSeeds := []int{79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67}
-	fmt.Println("actual", actualSeeds)
-	fmt.Println("expected", expectedSeeds)
-	compare := compareSlices(actualSeeds, expectedSeeds)
-	fmt.Println("compare", compare)
+	seeds2 := getSeeds(secondExample)
+	expected2 := []SeedRange{{79, 14}, {55, 13}, {18, 9}, {199, 231}}
+	fmt.Println("Seeds2: ", seeds2)
+	fmt.Println("Expected2: ", expected2)
+	fmt.Println("Passes?", reflect.DeepEqual(seeds2, expected2))
+}
 
+func TestPartII(t *testing.T) {
+	part2 := Part2(givenExample)
+	fmt.Println("Part II: ", part2)
+	fmt.Println("Passes?", part2 == 46)
 }
