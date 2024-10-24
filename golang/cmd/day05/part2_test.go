@@ -3,7 +3,7 @@ package day05
 import (
 	"fmt"
 	"reflect"
-
+	"advent-of-code-2023/utils"
 	// "strconv"
 	// "strings"
 	"testing"
@@ -52,7 +52,7 @@ func TestGetSeeds(t *testing.T) {
 	expected := []SeedRange{{79, 93}, {55, 68}}
 	fmt.Println("Seeds: ", seeds)
 	fmt.Println("Expected: ", expected)
-	fmt.Println("\033[33mPasses?\033[0m", reflect.DeepEqual(seeds, expected))
+	utils.PassesTest(reflect.DeepEqual(seeds, expected))
 	secondExample := `seeds: 79 14 55 13
 18 9 199 231`
 
@@ -60,7 +60,7 @@ func TestGetSeeds(t *testing.T) {
 	expected2 := []SeedRange{{79, 93}, {55, 68}, {18, 27}, {199, 430}}
 	fmt.Println("Seeds2: ", seeds2)
 	fmt.Println("Expected2: ", expected2)
-	fmt.Println("\033[33mPasses?\033[0m", reflect.DeepEqual(seeds2, expected2))
+	utils.PassesTest(reflect.DeepEqual(seeds2, expected2))
 }
 
 func TestGetInstructions(t *testing.T) {
@@ -68,7 +68,7 @@ func TestGetInstructions(t *testing.T) {
 	expected := []Instructions{{50, 98, 2}, {52, 50, 48}}
 	fmt.Println("Instructions: ", instructions)
 	fmt.Println("Expected: ", expected)
-	fmt.Println("Passes?", reflect.DeepEqual(instructions, expected))
+	utils.PassesTest(reflect.DeepEqual(instructions, expected))
 }
 
 // func TestPartII(t *testing.T) {

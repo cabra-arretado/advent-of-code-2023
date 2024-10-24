@@ -79,3 +79,14 @@ func ReadFileAsSlice(dayNumber string) []string {
 
 	return slice
 }
+
+func PassesTest(b bool){
+	if b {
+		fmt.Println("\033[32mPasses\033[0m")
+	} else {
+		fmt.Println("\033[31mFails\033[0m")
+	}
+	fmt.Println("\033[33m--------------\033[0m")
+
+
+}
