@@ -48,7 +48,7 @@ func compareSlices(slice1 []int, slice2 []int) bool {
 
 func TestGetSeeds(t *testing.T) {
 	seeds := getSeeds("seeds: 79 14 55 13")
-	expected := []SeedRange{{79, 14}, {55, 13}}
+	expected := []SeedRange{{79, 93}, {55, 68}}
 	fmt.Println("Seeds: ", seeds)
 	fmt.Println("Expected: ", expected)
 	fmt.Println("Passes?", reflect.DeepEqual(seeds, expected))
@@ -56,10 +56,18 @@ func TestGetSeeds(t *testing.T) {
 18 9 199 231`
 
 	seeds2 := getSeeds(secondExample)
-	expected2 := []SeedRange{{79, 14}, {55, 13}, {18, 9}, {199, 231}}
+	expected2 := []SeedRange{{79, 93}, {55, 68}, {18, 27}, {199, 430}}
 	fmt.Println("Seeds2: ", seeds2)
 	fmt.Println("Expected2: ", expected2)
 	fmt.Println("Passes?", reflect.DeepEqual(seeds2, expected2))
+}
+
+func TestGetInstructions(t *testing.T) {
+	instructions := getInstructions("50 98 2\n52 50 48")
+	expected := []Instructions{{50, 98, 2}, {52, 50, 48}}
+	fmt.Println("Instructions: ", instructions)
+	fmt.Println("Expected: ", expected)
+	fmt.Println("Passes?", reflect.DeepEqual(instructions, expected))
 }
 
 func TestPartII(t *testing.T) {
