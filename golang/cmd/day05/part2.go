@@ -46,20 +46,32 @@ func getInstructions(chunk string) []Instructions {
 	instructions := make([]Instructions, 0)
 	for _, line := range chunckLines {
 		lineTrimed := strings.TrimSpace(line)
-		var destinationStart, sourceStart, rangeLength int
-		_, err := fmt.Sscanf("%d %d %d", lineTrimed, &destinationStart, &sourceStart, &rangeLength)
+		lineSplitted := strings.Split(lineTrimed, " ")
+		destinationStart, err := strconv.Atoi(lineSplitted[0])
 		if err != nil {
-			fmt.Printf("error reading instructions %v", err)
+			fmt.Println("error converting destinationStart to int")
+		}
+		sourceStart, err := strconv.Atoi(lineSplitted[1])
+		if err != nil {
+			fmt.Println("error converting sourceStart to int")
+		}
+		rangeLength, err := strconv.Atoi(lineSplitted[2])
+		if err != nil {
+			fmt.Println("error converting rangeLength to int")
 		}
 		instructions = append(instructions, Instructions{destinationStart: destinationStart, sourceStart: sourceStart, rangeLength: rangeLength})
 	}
 	return instructions
 }
 
-func Part2(file string) int {
-	chunks := strings.Split(file, "\n\n")
-	// seeds := getSeeds(chunks[0])
-	chunks = chunks[1:]
-
-	return 0
-}
+// func Part2(file string) int {
+// 	chunks := strings.Split(file, "\n\n")
+// 	seeds := getSeeds(chunks[0])
+// 	chunks = chunks[1:]
+// 	instructionsChunks := [][]Instructions{}
+// 	for _, chunk := range chunks {
+// 		instruction := getInstructions(chunk)
+// 		instructionsChunks = append(instructions, instruction...)
+// 	}
+// 	return 0
+// }

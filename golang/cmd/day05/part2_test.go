@@ -64,7 +64,7 @@ func TestGetSeeds(t *testing.T) {
 }
 
 func TestGetInstructions(t *testing.T) {
-	instructions := getInstructions("50 98 2\n52 50 48")
+	instructions := getInstructions("seed to soil:\n50 98 2\n52 50 48")
 	expected := []Instructions{{50, 98, 2}, {52, 50, 48}}
 	fmt.Println("Instructions: ", instructions)
 	fmt.Println("Expected: ", expected)
