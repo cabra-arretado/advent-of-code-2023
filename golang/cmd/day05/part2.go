@@ -64,14 +64,15 @@ func getInstructions(chunk string) []Instructions {
 	return instructions
 }
 
-// func Part2(file string) int {
-// 	chunks := strings.Split(file, "\n\n")
-// 	seeds := getSeeds(chunks[0])
-// 	chunks = chunks[1:]
-// 	instructionsChunks := [][]Instructions{}
-// 	for _, chunk := range chunks {
-// 		instruction := getInstructions(chunk)
-// 		instructionsChunks = append(instructions, instruction...)
-// 	}
-// 	return 0
-// }
+func Part2(file string) int {
+	chunks := strings.Split(file, "\n\n")
+	seeds := getSeeds(chunks[0])
+	chunks = chunks[1:]
+	for _, chunk := range chunks {
+		for _, seedRange := range seeds {
+			for _, instruction := range getInstructions(chunk) {
+			}
+		}
+	}
+	return 0
+}
