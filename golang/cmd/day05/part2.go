@@ -14,6 +14,7 @@ type SeedRange struct {
 type Instructions struct {
 	destinationStart int
 	sourceStart      int
+	sourceEnd        int
 	rangeLength      int
 }
 
@@ -59,20 +60,21 @@ func getInstructions(chunk string) []Instructions {
 		if err != nil {
 			fmt.Println("error converting rangeLength to int")
 		}
-		instructions = append(instructions, Instructions{destinationStart: destinationStart, sourceStart: sourceStart, rangeLength: rangeLength})
+instructions = append(instructions, Instructions{destinationStart: destinationStart, sourceStart: sourceStart, rangeLength: rangeLength, sourceEnd: sourceStart + rangeLength})
 	}
 	return instructions
 }
 
 func Part2(file string) int {
-	chunks := strings.Split(file, "\n\n")
-	seeds := getSeeds(chunks[0])
-	chunks = chunks[1:]
-	for _, chunk := range chunks {
-		for _, seedRange := range seeds {
-			for _, instruction := range getInstructions(chunk) {
-			}
-		}
-	}
+	// chunks := strings.Split(file, "\n\n")
+	// seeds := getSeeds(chunks[0])
+	// chunks = chunks[1:]
+	// newSeeds := make([]SeedRange, 0)
+	// for _, chunk := range chunks {
+	// 	for _, seedRange := range seeds {
+	// 		for _, instruction := range getInstructions(chunk) {
+	// 		}
+	// 	}
+	// }
 	return 0
 }
